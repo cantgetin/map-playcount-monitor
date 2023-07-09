@@ -8,4 +8,7 @@ module.exports = {
         REDIRECT_URI: process.env.REDIRECT_URI,
         CLIENT_SECRET: process.env.CLIENT_SECRET
     },
+    images: {
+        domains: ['assets.ppy.sh'],
+    },
 };
