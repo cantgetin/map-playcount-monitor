@@ -7,15 +7,23 @@ import UserCard from "@/components/UserCard";
 
 function Maps() {
 
-    let [user, setUser] = useState<User>({avatar_url:'',username:''})
+    let [user, setUser] = useState<User>({
+        id: 0,
+        graveyard_beatmapset_count: 0,
+        unranked_beatmapset_count: 0,
+        avatar_url: '',
+        username: ''
+    })
+
     let [maps, setMaps] = useState<OsuMap[]>([])
     let [loaded, setLoaded] = useState<boolean>(false)
 
     useEffect(() => {
         getUser().then((r) => {
+            let userId = r.id
             console.log(r)
             setUser(r)
-            getUserBeatmaps().then((r: OsuMap[]) => {
+            getUserBeatmaps(userId).then((r: OsuMap[]) => {
                 setMaps(r)
                 setLoaded(true)
                 console.log(user)

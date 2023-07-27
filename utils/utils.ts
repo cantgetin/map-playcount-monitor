@@ -46,8 +46,8 @@ export async function handleOsuSiteRedirect(state: string, code: string) {
     }
 }
 
-export async function getUserBeatmaps() : Promise<OsuMap[]> {
-    return await axios.post('/api/get_beatmaps', {userId: 7192129, access_token: localStorage.getItem('access_token')}).then(r => r.data.result)
+export async function getUserBeatmaps(userId: number) : Promise<OsuMap[]> {
+    return await axios.post('/api/get_beatmaps', {userId: userId, access_token: localStorage.getItem('access_token')}).then(r => r.data.result)
 }
 
 export async function getUser() : Promise<any> {

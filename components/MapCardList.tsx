@@ -8,10 +8,19 @@ interface MapCardListProps {
 
 const MapCardList = (props: MapCardListProps) => {
 
+    const calculatePlaysOnAllDiffs = (map): number => {
+        let sum = 0
+        map.beatmaps.forEach((b) => {
+            sum += b.playcount
+        })
+        return sum
+    }
+
     return (
         <div className="flex flex-col gap-2 py-2">
             {
-                props.maps.map((map) =>
+                props.maps.sort((a, b) =>
+                    calculatePlaysOnAllDiffs(b) - calculatePlaysOnAllDiffs(a)).map((map) =>
                     <MapCard map={map} key={map.id}/>
                 )
             }
