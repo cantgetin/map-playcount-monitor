@@ -4,31 +4,29 @@ export default async function getUserBeatmaps(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-
-    let {access_token, userId} = req.body
+    const { access_token, userId }: any = req.body;
 
     const url = new URL(
         `https://osu.ppy.sh/api/v2/users/${userId}/beatmapsets/graveyard`
     );
 
-    const params = {
-        "limit": "50",
-        "offset": "0",
+    const params: { [key: string]: string } = {
+        limit: '50',
+        offset: '0',
     };
 
-    Object.keys(params)
-        .forEach(key => url.searchParams.append(key, params[key]));
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
     const headers = {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": `Bearer ${access_token}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${access_token}`,
     };
 
-    let apiResponse = await fetch(url, {
-        method: "GET",
+    let apiResponse: any = await fetch(url, {
+        method: 'GET',
         headers,
-    }).then(response => response.json())
+    }).then(response => response.json());
 
-    res.status(200).json({result: apiResponse});
+    res.status(200).json({ result: apiResponse });
 }

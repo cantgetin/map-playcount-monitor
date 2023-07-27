@@ -5,7 +5,7 @@ interface MapCardProps {
 }
 const MapCard = (props: MapCardProps) => {
 
-    const calculatePlaysOnAllDiffs = (map) : number => {
+    const calculatePlaysOnAllDiffs = (map: OsuMap) : number => {
         let sum = 0
         map.beatmaps.forEach((b) => {
             sum += b.playcount
