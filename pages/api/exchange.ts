@@ -21,11 +21,11 @@ export default async function exchangeCodeForToken(
 
     let body = `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}&grant_type=authorization_code&redirect_uri=${REDIRECT_URI}`;
 
-    let stuff = await fetch(url, {
+    let apiResponse = await fetch(url, {
         method: "POST",
         headers: headers,
         body: body,
     }).then(response => response.json())
 
-    res.status(200).json({result: stuff});
+    res.status(200).json({result: apiResponse});
 }

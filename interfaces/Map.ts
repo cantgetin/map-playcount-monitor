@@ -4,7 +4,7 @@ export interface OsuMap {
     title: string
     created: string
     covers: MapCovers
-    beatmaps: BeatMap[]
+    beatmaps: Beatmap[]
 }
 
 export interface MapCovers {
@@ -12,7 +12,7 @@ export interface MapCovers {
     cover: string
 }
 
-export interface BeatMap {
+export interface Beatmap {
     difficulty_rating: number
     version: string
     playcount: number
