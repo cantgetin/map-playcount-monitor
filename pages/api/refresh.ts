@@ -1,4 +1,4 @@
-import {NextApiRequest, NextApiResponse} from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -8,7 +8,7 @@ export default async function exchangeRefreshTokenForAccessToken(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const {refreshToken} = req.body;
+    const { refreshToken } = req.body;
     const url = new URL(
         "https://osu.ppy.sh/oauth/token"
     );
@@ -24,5 +24,5 @@ export default async function exchangeRefreshTokenForAccessToken(
     })
     const statusCode = response.status;
     const apiResponse = await response.json();
-    res.status(statusCode).json({...apiResponse});
+    res.status(statusCode).json({ ...apiResponse });
 }

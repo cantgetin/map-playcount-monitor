@@ -1,9 +1,10 @@
-import {useEffect, useState} from "react";
-import {getUserWithRetry, getUserBeatmapsWithRetry} from "@/utils/utils";
-import {OsuMap} from "@/interfaces/Map";
+import { useEffect, useState } from "react";
+import { getUserWithRetry, getUserBeatmapsWithRetry } from "@/utils/utils";
+import { OsuMap } from "@/interfaces/Map";
 import MapCardList from "@/components/MapCardList";
-import {User} from "@/interfaces/User";
+import { User } from "@/interfaces/User";
 import UserCard from "@/components/UserCard";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 function Maps() {
 
@@ -24,7 +25,7 @@ function Maps() {
             setUser(user)
             getUserBeatmapsWithRetry(user.id).then((userBeatmaps: OsuMap[]) => {
                 setMaps(userBeatmaps)
-                console.log('User Beatmaps: ',userBeatmaps)
+                console.log('User Beatmaps: ', userBeatmaps)
                 setLoaded(true)
             })
         })
@@ -37,11 +38,11 @@ function Maps() {
                 {
                     loaded ?
                         <div className="p-10">
-                            <UserCard user={user}/>
-                            <MapCardList maps={maps}/>
+                            <UserCard user={user} />
+                            <MapCardList maps={maps} />
                         </div>
                         :
-                        <h1>Loading...</h1>
+                        <LoadingSpinner/>
                 }
             </div>
         </div>

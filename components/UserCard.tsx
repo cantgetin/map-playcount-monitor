@@ -1,5 +1,4 @@
 import React from 'react';
-import {OsuMap} from "@/interfaces/Map";
 import {User} from "@/interfaces/User";
 
 interface UserProps {

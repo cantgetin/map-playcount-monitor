@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react';
-import {handleOsuSiteRedirect, redirectToAuthorize} from "@/utils/utils";
-import {useRouter} from "next/router";
+import React, { useEffect } from 'react';
+import { handleOsuSiteRedirect, redirectToAuthorize } from "@/utils/utils";
+import { useRouter } from "next/router";
 import queryString from "query-string";
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 const Authorize = () => {
     const router = useRouter();
@@ -29,9 +30,7 @@ const Authorize = () => {
     }, []);
 
     return (
-        <div>
-            <h1>Authorize Page</h1>
-        </div>
+        <LoadingSpinner/>
     );
 };
 

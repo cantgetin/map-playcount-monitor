@@ -1,6 +1,6 @@
 import axios from "axios";
-import {TokenResponse} from "@/interfaces/TokenResponse";
-import {OsuMap} from "@/interfaces/Map";
+import { TokenResponse } from "@/interfaces/TokenResponse";
+import { OsuMap } from "@/interfaces/Map";
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const REDIRECT_URI = process.env.REDIRECT_URI;
@@ -38,9 +38,9 @@ export async function handleOsuSiteRedirect(state: string, code: string) {
         console.log('set the code to local storage, now exchange code for token')
 
         // exchange code for authorization token
-        let res = await axios.post('/api/exchange', {code: code})
+        let res = await axios.post('/api/exchange', { code: code })
 
-        let data : TokenResponse = res.data
+        let data: TokenResponse = res.data
         localStorage.setItem('access_token', data.access_token)
         localStorage.setItem('refresh_token', data.refresh_token)
         console.log('set access and refresh token to localstorage', res)
@@ -48,11 +48,11 @@ export async function handleOsuSiteRedirect(state: string, code: string) {
 }
 
 export async function exchangeRefreshTokenForAccessToken(refreshToken: string) {
-    return await axios.post('/api/refresh', {refreshToken: localStorage.getItem('refresh_token')}).then(r => r.data)
+    return await axios.post('/api/refresh', { refreshToken: localStorage.getItem('refresh_token') }).then(r => r.data)
 }
 
-export async function getUserBeatmaps(userId: number) : Promise<OsuMap[]> {
-    return await axios.post('/api/get_beatmaps', {userId: userId, access_token: localStorage.getItem('access_token')}).then(r => {
+export async function getUserBeatmaps(userId: number): Promise<OsuMap[]> {
+    return await axios.post('/api/get_beatmaps', { userId: userId, access_token: localStorage.getItem('access_token') }).then(r => {
         const arrayOfObjects = Object.keys(r.data).map(key => ({
             key,
             ...r.data[key],
@@ -61,8 +61,8 @@ export async function getUserBeatmaps(userId: number) : Promise<OsuMap[]> {
     })
 }
 
-export async function getUser() : Promise<any> {
-    return await axios.post('/api/get_user', {access_token: localStorage.getItem('access_token')}).then(r => r.data)
+export async function getUser(): Promise<any> {
+    return await axios.post('/api/get_user', { access_token: localStorage.getItem('access_token') }).then(r => r.data)
 }
 
 export async function getUserWithRetry() {
