@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getUser, getUserBeatmaps} from "@/utils/utils";
+import {getUserWithRetry, getUserBeatmapsWithRetry} from "@/utils/utils";
 import {OsuMap} from "@/interfaces/Map";
 import MapCardList from "@/components/MapCardList";
 import {User} from "@/interfaces/User";
@@ -19,14 +19,13 @@ function Maps() {
     let [loaded, setLoaded] = useState<boolean>(false)
 
     useEffect(() => {
-        getUser().then((r) => {
-            let userId = r.id
-            console.log(r)
-            setUser(r)
-            getUserBeatmaps(userId).then((r: OsuMap[]) => {
-                setMaps(r)
+        getUserWithRetry().then((user) => {
+            console.log('User: ', user)
+            setUser(user)
+            getUserBeatmapsWithRetry(user.id).then((userBeatmaps: OsuMap[]) => {
+                setMaps(userBeatmaps)
+                console.log('User Beatmaps: ',userBeatmaps)
                 setLoaded(true)
-                console.log(user)
             })
         })
 

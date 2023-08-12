@@ -9,7 +9,7 @@ const AuthorizePage = () => {
         router.replace('/authorize');
     }, []);
 
-    return null; // Return null as we don't need to render anything for the custom 404 page
+    return null;
 };
 
 export default AuthorizePage;
