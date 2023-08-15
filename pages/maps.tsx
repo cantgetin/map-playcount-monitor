@@ -1,21 +1,13 @@
-import { useEffect, useState } from "react";
-import { getUserWithRetry, getUserBeatmapsWithRetry } from "@/utils/utils";
-import { OsuMap } from "@/interfaces/Map";
+import { useEffect } from "react";
 import MapCardList from "@/components/MapCardList";
-import { User, emptyUser } from "@/interfaces/User";
 import UserCard from "@/components/UserCard";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchUser, selectUser, selectUserLoading } from "@/store/userSlice";
-import { fetchMaps, selectMaps, selectMapsLoading } from "@/store/mapsSlice";
+import { fetchMaps, selectMaps, selectMapsLoading, selectOldMaps } from "@/store/mapsSlice";
 import { LoadingState } from "@/interfaces/LoadingState";
 
 function Maps() {
-
-    // let [user, setUser] = useState<User>(emptyUser)
-
-    // let [maps, setMaps] = useState<OsuMap[]>([])
-    // let [loaded, setLoaded] = useState<boolean>(false)
 
     const dispatch = useAppDispatch();
 
@@ -24,6 +16,8 @@ function Maps() {
 
     const maps = useAppSelector(selectMaps);
     const mapsLoading = useAppSelector(selectMapsLoading);
+
+    const mapsOld = useAppSelector(selectOldMaps);
 
     useEffect(() => {
         dispatch(fetchUser())
@@ -50,7 +44,7 @@ function Maps() {
                     {userLoading === LoadingState.Succeeded && user != null && <UserCard user={user} />}
                     {userLoading === LoadingState.Failed && <p>Failed to fetch user.</p>}
                     {mapsLoading === LoadingState.Pending && <p>Loading...</p>}
-                    {mapsLoading === LoadingState.Succeeded && maps != null && <MapCardList maps={maps} />}
+                    {mapsLoading === LoadingState.Succeeded && maps != null && <MapCardList maps={maps} mapsOld={mapsOld} />}
                     {mapsLoading === LoadingState.Failed && <p>Failed to fetch maps.</p>}
                 </div>
             </div>
