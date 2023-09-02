@@ -31,8 +31,8 @@ const MapCard = (props: MapCardProps) => {
                     {
                         calculatePlaysOnAllDiffs(props.map) - calculatePlaysOnAllDiffs(props.oldMap) > 0 ?
                         <>
-                        <h1 className="text-xs text-yellow-200">▲</h1>
-                        <h1 className="text-2xl text-yellow-200">{calculatePlaysOnAllDiffs(props.map) - calculatePlaysOnAllDiffs(props.oldMap)}</h1>
+                        <h1 className="text-xs text-green-300">▲</h1>
+                        <h1 className="text-2xl text-green-300">{calculatePlaysOnAllDiffs(props.map) - calculatePlaysOnAllDiffs(props.oldMap)}</h1>
                         </>
                         : null
                     }
