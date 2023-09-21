@@ -52,13 +52,18 @@ export async function exchangeRefreshTokenForAccessToken(refreshToken: string) {
 }
 
 export async function getUserBeatmaps(userId: number): Promise<OsuMap[]> {
-    return await axios.post('/api/get_beatmaps', { userId: userId, access_token: localStorage.getItem('access_token') }).then(r => {
-        const arrayOfObjects = Object.keys(r.data).map(key => ({
-            key,
-            ...r.data[key],
-        }));
-        return arrayOfObjects
-    })
+    const types = ['graveyard', 'loved', 'nominated', 'pending', 'ranked']
+    let maps : OsuMap[] = []
+    for (let type of types) {
+        await axios.post('/api/get_beatmaps', { userId: userId, type: type, access_token: localStorage.getItem('access_token') }).then(r => {
+            const arrayOfObjects = Object.keys(r.data).map(key => ({
+                key,
+                ...r.data[key],
+            }));
+            maps = maps.concat(arrayOfObjects);
+        })
+    }
+    return maps
 }
 
 export async function getUser(): Promise<any> {

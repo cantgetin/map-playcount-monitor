@@ -4,12 +4,12 @@ export default async function getUserBeatmaps(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const { access_token, userId }: any = req.body;
+    const { access_token, userId, type }: any = req.body;
     const url = new URL(
-        `https://osu.ppy.sh/api/v2/users/${userId}/beatmapsets/graveyard`
+        `https://osu.ppy.sh/api/v2/users/${userId}/beatmapsets/${type}`
     );
     const params: { [key: string]: string } = {
-        limit: '50',
+        limit: '100',
         offset: '0',
     };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
