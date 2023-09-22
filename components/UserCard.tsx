@@ -3,6 +3,7 @@ import {User} from "@/interfaces/User";
 
 interface UserProps {
     user: User
+    children?: React.ReactNode
 }
 
 const UserCard = (props: UserProps) => {
@@ -13,6 +14,7 @@ const UserCard = (props: UserProps) => {
                 <span>Logged in as:</span>
                 <h1 className="text-3xl">{props.user.username}</h1>
             </div>
+            {props.children}
         </div>
     );
 };

@@ -5,6 +5,7 @@ export interface OsuMap {
     created: string
     covers: MapCovers
     beatmaps: Beatmap[]
+    status: string
 }
 
 export interface MapCovers {

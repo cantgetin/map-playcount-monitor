@@ -4,7 +4,6 @@ export interface User {
     username: string
     graveyard_beatmapset_count: number
     unranked_beatmapset_count: number
-    //last_time_fetched: number
 }
 
 export const emptyUser: User = {
@@ -13,5 +12,4 @@ export const emptyUser: User = {
     unranked_beatmapset_count: 0,
     avatar_url: '',
     username: ''
-    //last_time_fetched: 0,
 }

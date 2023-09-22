@@ -39,10 +39,10 @@ const SummaryCard = (props: SummaryCardProps) => {
                     <div className="text-sm text-orange-200">
                         {calculateTotalPlays(props.mapsOld)} Plays last time
                     </div>
-                    <h1 className="p-2 flex gap-2 justify-center items-center mt-auto ml-auto">
+                    <div className="p-2 flex gap-2 justify-center items-center mt-auto ml-auto">
                         <h1 className="text-xs text-green-300">▲</h1>
                         <h1 className="text-2xl text-green-300">{calculateTotalPlays(props.maps) - calculateTotalPlays(props.mapsOld)}</h1>
-                    </h1>
+                    </div>
                 </>
                 : null
             }

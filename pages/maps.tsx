@@ -16,6 +16,7 @@ import {
 } from "@/store/mapsSlice";
 import { LoadingState } from "@/interfaces/LoadingState";
 import SummaryCard from "@/components/SummaryCard";
+import MapFilter from "@/components/MapFilter";
 
 function Maps() {
     const dispatch = useAppDispatch();
@@ -36,6 +37,13 @@ function Maps() {
         }
     }, [user, dispatch]);
 
+    useEffect(() => {
+        if (maps) {
+            console.log('User:',user)
+            console.log('Maps:',maps)
+        }
+    }, [maps])
+
     const userLoadingState = useAppSelector(selectUserLoading);
     const mapsLoadingState = useAppSelector(selectMapsLoading);
 
@@ -43,29 +51,20 @@ function Maps() {
         <div className="flex justify-center items-center">
             <div className="flex flex-col">
                 <div className="p-10 gap-2">
-                    <div className="flex">
-                        {userLoadingState === LoadingState.Pending && <LoadingSpinner />}
-                        {userLoadingState === LoadingState.Succeeded && user && (
-                            <UserCard user={user} />
-                        )}
-                        {userLoadingState === LoadingState.Failed && (
-                            <p>Failed to fetch user.</p>
-                        )}
-
-                        {userLoadingState === LoadingState.Succeeded &&
-                            mapsLoadingState === LoadingState.Succeeded &&
-                            user &&
-                            maps && (
+                    {userLoadingState === LoadingState.Succeeded &&
+                        mapsLoadingState === LoadingState.Succeeded &&
+                        user &&
+                        maps && (
+                            <UserCard user={user}>
                                 <SummaryCard user={user} maps={maps} mapsOld={mapsOld} />
-                            )}
-                    </div>
-                    {mapsLoadingState === LoadingState.Pending && <p>Loading...</p>}
+                            </UserCard>
+                        )}
                     {mapsLoadingState === LoadingState.Succeeded && maps && (
                         <MapCardList maps={maps} mapsOld={mapsOld} />
                     )}
-                    {mapsLoadingState === LoadingState.Failed && (
-                        <p>Failed to fetch maps.</p>
-                    )}
+                    {(mapsLoadingState === LoadingState.Pending || userLoadingState === LoadingState.Pending) && <LoadingSpinner />}
+                    {mapsLoadingState === LoadingState.Failed && (<p>Failed to fetch maps.</p>)}
+                    {userLoadingState === LoadingState.Failed && (<p>Failed to fetch user.</p>)}
                 </div>
             </div>
         </div>
