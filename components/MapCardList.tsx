@@ -10,7 +10,7 @@ interface MapCardListProps {
 const MapCardList = (props: MapCardListProps) => {
 
     return (
-        <div className="flex flex-col gap-2 py-2">
+        <div className="flex flex-col gap-2">
             {
                 props.maps.map((map) =>
                     <MapCard map={map} oldMap={props.mapsOld?.filter(o => o.id === map.id)

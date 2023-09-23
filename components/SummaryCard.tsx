@@ -11,10 +11,6 @@ interface SummaryCardProps {
 
 const SummaryCard = (props: SummaryCardProps) => {
 
-    // total count of maps
-    // total plays on all maps
-    // total plays growth
-
     const calculateTotalPlays = (maps: OsuMap[]): number => {
         let sum = 0
         maps.forEach((map) => {

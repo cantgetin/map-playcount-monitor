@@ -15,7 +15,7 @@ const MapCard = (props: MapCardProps) => {
     }
 
     return (
-        <div className="flex bg-zinc-900 text-white w-full">
+        <div className="flex bg-zinc-900 text-white w-full rounded-lg overflow-hidden">
             <div>
                 <img src={props.map.covers.card} width="200" height="auto" alt="map bg" />
             </div>

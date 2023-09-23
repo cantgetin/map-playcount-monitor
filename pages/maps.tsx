@@ -39,8 +39,8 @@ function Maps() {
 
     useEffect(() => {
         if (maps) {
-            console.log('User:',user)
-            console.log('Maps:',maps)
+            console.log('User:', user)
+            console.log('Maps:', maps)
         }
     }, [maps])
 
@@ -49,24 +49,24 @@ function Maps() {
 
     return (
         <div className="flex justify-center items-center">
-            <div className="flex flex-col">
-                <div className="p-10 gap-2">
+                <div className="p-10 flex flex-col gap-2">
                     {userLoadingState === LoadingState.Succeeded &&
                         mapsLoadingState === LoadingState.Succeeded &&
                         user &&
                         maps && (
                             <UserCard user={user}>
                                 <SummaryCard user={user} maps={maps} mapsOld={mapsOld} />
+                                <MapFilter maps={maps}/>
                             </UserCard>
                         )}
                     {mapsLoadingState === LoadingState.Succeeded && maps && (
                         <MapCardList maps={maps} mapsOld={mapsOld} />
+
                     )}
                     {(mapsLoadingState === LoadingState.Pending || userLoadingState === LoadingState.Pending) && <LoadingSpinner />}
                     {mapsLoadingState === LoadingState.Failed && (<p>Failed to fetch maps.</p>)}
                     {userLoadingState === LoadingState.Failed && (<p>Failed to fetch user.</p>)}
                 </div>
-            </div>
         </div>
     );
 }
