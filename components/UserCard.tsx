@@ -11,7 +11,7 @@ const UserCard = (props: UserProps) => {
         <div className="flex bg-zinc-900 w-full rounded-lg overflow-hidden">
             <img src={props.user.avatar_url} height={200} width={200}/>
             <div className="p-2 flex flex-col">
-                <span>Logged in as:</span>
+                <span className="text-sm">Logged in as:</span>
                 <h1 className="text-3xl">{props.user.username}</h1>
                 {props.children[1]}
             </div>

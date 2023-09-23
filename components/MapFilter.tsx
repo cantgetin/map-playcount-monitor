@@ -15,7 +15,7 @@ const MapFilter = (props: MapFilterProps) => {
                 types.map((type) => {
                     if (props.maps.filter(o => o.status == type).length == 0) return null
                     else return (
-                        <div className="bg-zinc-800 px-2 py-1 rounded-lg text-sm cursor-pointer">
+                        <div key={type} className="bg-zinc-800 px-2 py-1 rounded-lg text-sm cursor-pointer">
                             {type} {props.maps.filter(o => o.status == type).length}
                         </div>
                     )
