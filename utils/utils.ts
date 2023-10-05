@@ -53,7 +53,7 @@ export async function exchangeRefreshTokenForAccessToken(refreshToken: string) {
 
 export async function getUserBeatmaps(userId: number): Promise<OsuMap[]> {
     const types = ['graveyard', 'loved', 'nominated', 'pending', 'ranked']
-    let maps : OsuMap[] = []
+    let maps: OsuMap[] = []
     for (let type of types) {
         await axios.post('/api/get_beatmaps', { userId: userId, type: type, access_token: localStorage.getItem('access_token') }).then(r => {
             const arrayOfObjects = Object.keys(r.data).map(key => ({
@@ -106,14 +106,37 @@ export async function getUserBeatmapsWithRetry(userId: number) {
     }
 };
 
-// async function handleApiError<T>(error: any, originalFunction: (...args: any[]) => Promise<T>, ...args: any[]): Promise<T> {
-//     if (error.response && (error.response.status === 401)) {
-//         let refreshToken = localStorage.getItem('refresh_token')
-//         const res = await exchangeRefreshTokenForAccessToken(refreshToken!);
-//         localStorage.setItem('access_token', res.access_token);
-//         localStorage.setItem('refresh_token', res.refresh_token);
-//         return originalFunction(...args);
-//     } else {
-//         throw error;
-//     }
-// }
+export function unixTimestampToDate(timestampString: string): string {
+
+    const timestamp = parseInt(timestampString, 10);
+    const date = new Date(timestamp);
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} 
+        ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+export function getTimeAgoString(timestampString: string): string {
+    let timestamp = parseInt(timestampString, 10);
+
+    const now = new Date().getTime();
+    const timeDifference = now - timestamp;
+
+    const minutesAgo = Math.floor(timeDifference / (1000 * 60));
+    const hoursAgo = Math.floor(minutesAgo / 60);
+    const daysAgo = Math.floor(hoursAgo / 24);
+
+    if (daysAgo > 0) {
+        return `${daysAgo} day${daysAgo !== 1 ? 's' : ''} ago`;
+    } else if (hoursAgo > 0) {
+        return `${hoursAgo} hour${hoursAgo !== 1 ? 's' : ''} ago`;
+    } else {
+        return `${minutesAgo} minute${minutesAgo !== 1 ? 's' : ''} ago`;
+    }
+}

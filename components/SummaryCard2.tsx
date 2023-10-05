@@ -1,15 +1,20 @@
 import { OsuMap } from "@/interfaces/Map"
+import { getTimeAgoString, unixTimestampToDate } from "@/utils/utils"
+import { useEffect, useState } from "react"
 
 
 interface MapFilterProps {
     maps: OsuMap[]
+    mapsLastTimeFetched: string
 }
 
 const types = ['graveyard', 'loved', 'nominated', 'pending', 'ranked', 'wip']
 
-const MapFilter = (props: MapFilterProps) => {
+const SummaryCard2 = (props: MapFilterProps) => {
+
     return (
-        <div className="bg-zinc-900 w-full rounded-lg flex flex-col gap-1 mt-auto">
+        <div className="bg-zinc-900 w-full rounded-lg flex flex-col gap-2 mt-auto">
+            <div className="text-sm">Last fetched {getTimeAgoString(props.mapsLastTimeFetched)}</div>
             <div className="flex flex-wrap gap-2">
             {
                 types.map((type) => {
@@ -27,4 +32,4 @@ const MapFilter = (props: MapFilterProps) => {
     )
 }
 
-export default MapFilter
+export default SummaryCard2

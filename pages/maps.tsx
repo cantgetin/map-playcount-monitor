@@ -11,20 +11,25 @@ import {
 import {
     fetchMaps,
     selectMaps,
+    selectMapsLastTimeFetched,
     selectMapsLoading,
+    selectMapsOldLastTimeFetched,
     selectOldMaps,
 } from "@/store/mapsSlice";
 import { LoadingState } from "@/interfaces/LoadingState";
 import SummaryCard from "@/components/SummaryCard";
-import MapFilter from "@/components/MapFilter";
+import SummaryCard2 from "@/components/SummaryCard2";
 
 function Maps() {
     const dispatch = useAppDispatch();
 
-    const { user, maps, mapsOld } = useAppSelector((state) => ({
+    // add hook for this stuff below
+    const { user, maps, mapsOld, mapsLastTimeFetched, mapsOldLastTimeFetched } = useAppSelector((state) => ({
         user: selectUser(state),
         maps: selectMaps(state),
         mapsOld: selectOldMaps(state),
+        mapsLastTimeFetched: selectMapsLastTimeFetched(state),
+        mapsOldLastTimeFetched: selectMapsOldLastTimeFetched(state),
     }));
 
     useEffect(() => {
@@ -56,7 +61,7 @@ function Maps() {
                         maps && (
                             <UserCard user={user}>
                                 <SummaryCard user={user} maps={maps} mapsOld={mapsOld} />
-                                <MapFilter maps={maps}/>
+                                <SummaryCard2 maps={maps} mapsLastTimeFetched={mapsLastTimeFetched}/>
                             </UserCard>
                         )}
                     {mapsLoadingState === LoadingState.Succeeded && maps && (
