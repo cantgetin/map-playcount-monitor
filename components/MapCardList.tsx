@@ -13,10 +13,13 @@ const MapCardList = (props: MapCardListProps) => {
         <div className="flex flex-col gap-2">
             {
                 props.maps.map((map) =>
-                    <MapCard map={map} oldMap={props.mapsOld?.filter(o => o.id === map.id)
-                        ? props.mapsOld?.filter(o => o.id === map.id)[0]
-                        : null} key={map.id} 
+                    <div className='flex'>
+                        <div className='absolute p-2 text-md'>{props.maps.indexOf(map)+1}</div>
+                        <MapCard map={map} oldMap={props.mapsOld?.filter(o => o.id === map.id)
+                            ? props.mapsOld?.filter(o => o.id === map.id)[0]
+                            : null} key={map.id}
                         />
+                    </div>
                 )
             }
         </div>

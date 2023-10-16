@@ -136,7 +136,9 @@ export function getTimeAgoString(timestampString: string): string {
         return `${daysAgo} day${daysAgo !== 1 ? 's' : ''} ago`;
     } else if (hoursAgo > 0) {
         return `${hoursAgo} hour${hoursAgo !== 1 ? 's' : ''} ago`;
-    } else {
+    } else if (minutesAgo > 0) {
         return `${minutesAgo} minute${minutesAgo !== 1 ? 's' : ''} ago`;
+    } else {
+        return 'just now';
     }
 }

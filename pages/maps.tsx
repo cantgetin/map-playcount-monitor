@@ -61,7 +61,7 @@ function Maps() {
                         maps && (
                             <UserCard user={user}>
                                 <SummaryCard user={user} maps={maps} mapsOld={mapsOld} />
-                                <SummaryCard2 maps={maps} mapsLastTimeFetched={mapsLastTimeFetched}/>
+                                <SummaryCard2 maps={maps} mapsLastTimeFetched={mapsLastTimeFetched} mapsOldLastTimeFetched={mapsOldLastTimeFetched}/>
                             </UserCard>
                         )}
                     {mapsLoadingState === LoadingState.Succeeded && maps && (
