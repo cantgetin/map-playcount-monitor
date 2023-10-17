@@ -15,7 +15,7 @@ const SummaryCard2 = (props: MapFilterProps) => {
 
     return (
         <div className="bg-zinc-900 w-full rounded-lg flex flex-col gap-2 mt-auto">
-            <div className="text-sm">
+            <div className="text-xs text-zinc-400">
                 <div>Last fetched {getTimeAgoString(props.mapsLastTimeFetched)}</div>
                 {
                     props.mapsOldLastTimeFetched ?

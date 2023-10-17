@@ -23,19 +23,20 @@ const SummaryCard = (props: SummaryCardProps) => {
     }
 
     return (
-        <div className="bg-zinc-900 gap-2 p-2 w-72 flex flex-col text-right">
+        <>
             <h1 className="text-2xl">
                 {props.user.graveyard_beatmapset_count + props.user.unranked_beatmapset_count} Maps fetched
             </h1>
-            <h1 className="text-xl text-yellow-200">
+            <div className="text-xl text-yellow-200">
                 {calculateTotalPlays(props.maps)} Plays now
-            </h1>
-            {props.mapsOld != null ?
+                {props.mapsOld ? 
+                    <div className="text-sm text-orange-200">{calculateTotalPlays(props.mapsOld)} Plays last time</div> 
+                    : null
+                }
+            </div>
+            {props.mapsOld ?
                 <>
-                    <div className="text-sm text-orange-200">
-                        {calculateTotalPlays(props.mapsOld)} Plays last time
-                    </div>
-                    <div className="p-2 flex gap-2 justify-center items-center mt-auto ml-auto">
+                    <div className="flex gap-2 justify-center items-center mt-auto ml-auto px-2">
                         <h1 className="text-xs text-green-300">▲</h1>
                         <h1 className="text-2xl text-green-300">{calculateTotalPlays(props.maps) - calculateTotalPlays(props.mapsOld)}</h1>
                     </div>
@@ -43,7 +44,7 @@ const SummaryCard = (props: SummaryCardProps) => {
                 : null
             }
 
-        </div>
+        </>
     );
 };
 
