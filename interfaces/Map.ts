@@ -6,6 +6,7 @@ export interface OsuMap {
     covers: MapCovers
     beatmaps: Beatmap[]
     status: string
+    last_updated: string
 }
 
 export interface MapCovers {

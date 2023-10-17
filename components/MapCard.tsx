@@ -1,5 +1,6 @@
 import React from 'react';
 import { OsuMap } from "@/interfaces/Map";
+import { getMapRemainingPendingTime } from '@/utils/utils';
 interface MapCardProps {
     map: OsuMap
     oldMap: OsuMap | null
@@ -17,7 +18,7 @@ const MapCard = (props: MapCardProps) => {
     return (
         <div className="flex bg-zinc-900 text-white w-full rounded-lg overflow-hidden">
             <div>
-                <img src={props.map.covers.card} width="200" height="auto" alt="map bg" />
+                <img src={props.map.covers.card} className='h-full' width="200" alt="map bg" />
             </div>
             <div className="p-2 mr-auto">
                 <div className="text-l">{props.map.artist} - {props.map.title}</div>
@@ -25,6 +26,7 @@ const MapCard = (props: MapCardProps) => {
                     <h1 className="text-xl text-yellow-200">{calculatePlaysOnAllDiffs(props.map)} plays</h1>
                     {props.oldMap && <h1 className="text-sm text-orange-200">were {calculatePlaysOnAllDiffs(props.oldMap)} plays</h1>}
                 </div>
+                <div className='text-xs text-zinc-500'>{getMapRemainingPendingTime(props.map.last_updated)}</div>
             </div>
             {props.oldMap &&
                 <div className="p-2 flex gap-2 justify-center items-center">

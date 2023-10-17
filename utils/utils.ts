@@ -107,10 +107,8 @@ export async function getUserBeatmapsWithRetry(userId: number) {
 };
 
 export function unixTimestampToDate(timestampString: string): string {
-
     const timestamp = parseInt(timestampString, 10);
     const date = new Date(timestamp);
-
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
@@ -124,11 +122,14 @@ export function unixTimestampToDate(timestampString: string): string {
 
 export function getTimeAgoString(timestampString: string): string {
     let timestamp = parseInt(timestampString, 10);
-
     const now = new Date().getTime();
     const timeDifference = now - timestamp;
 
-    const minutesAgo = Math.floor(timeDifference / (1000 * 60));
+    return millisecondsToDHMString(timeDifference)
+}
+
+export function millisecondsToDHMString(time: number): string {
+    const minutesAgo = Math.floor(time / (1000 * 60));
     const hoursAgo = Math.floor(minutesAgo / 60);
     const daysAgo = Math.floor(hoursAgo / 24);
 
@@ -142,3 +143,39 @@ export function getTimeAgoString(timestampString: string): string {
         return 'just now';
     }
 }
+
+export function getMapRemainingPendingTime(dateString: string): string {
+    const targetDate = new Date(dateString);
+    const currentDate = new Date();
+    const differenceInMilliseconds = currentDate.getTime() - targetDate.getTime();
+    const daysInMilliseconds = 28 * 24 * 60 * 60 * 1000;
+    if (differenceInMilliseconds < daysInMilliseconds) {
+      return `pending for ${millisecondsToDuration(daysInMilliseconds - differenceInMilliseconds)}`
+    } else {
+      return ''
+    }
+}
+
+function millisecondsToDuration(milliseconds: number): string {
+    const oneDay = 24 * 60 * 60 * 1000;
+    const oneHour = 60 * 60 * 1000;
+    const oneMinute = 60 * 1000;
+    const days = Math.floor(milliseconds / oneDay);
+    milliseconds %= oneDay;
+    const hours = Math.floor(milliseconds / oneHour);
+    milliseconds %= oneHour;
+    const minutes = Math.floor(milliseconds / oneMinute);
+  
+    let result = '';
+    if (days > 0) {
+      result += `${days} day${days > 1 ? 's' : ''} `;
+    }
+    if (hours > 0) {
+      result += `${hours} hour${hours > 1 ? 's' : ''} `;
+    }
+    if (minutes > 0) {
+      result += `${minutes} minute${minutes > 1 ? 's' : ''} `;
+    }
+  
+    return result.trim();
+  }
