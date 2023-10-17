@@ -18,7 +18,7 @@ const MapCard = (props: MapCardProps) => {
     return (
         <div className="flex bg-zinc-900 text-white w-full rounded-lg overflow-hidden">
             <div>
-                <img src={props.map.covers.card} className='h-full' width="200" alt="map bg" />
+                <img src={props.map.covers.card} className='h-full' width="200" alt="map bg" style={{ objectFit: 'cover' }}/>
             </div>
             <div className="p-2 mr-auto">
                 <div className="text-l">{props.map.artist} - {props.map.title}</div>
