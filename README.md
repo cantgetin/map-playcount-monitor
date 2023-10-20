@@ -12,4 +12,4 @@ A web application that connects to the osu! API and allows you to see the playco
 
 ## Appearance
 
-![App screnshot](.github/assets/app-screenshot2.png)
+![App screnshot](.github/assets/app-screenshot3.png)
