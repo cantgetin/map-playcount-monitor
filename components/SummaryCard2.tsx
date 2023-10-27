@@ -15,6 +15,7 @@ const SummaryCard2 = (props: MapFilterProps) => {
 
     return (
         <div className="bg-zinc-900 w-full rounded-lg flex flex-col gap-2 mt-auto">
+            <div className="bg-green-600 px-2 py-1 rounded-lg text-xs cursor-pointer w-fit select-none hover:bg-green-700">Refresh ⭮</div>
             <div className="text-xs text-zinc-400">
                 <div>Last fetched {getTimeAgoString(props.mapsLastTimeFetched)}</div>
                 {

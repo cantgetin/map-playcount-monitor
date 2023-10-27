@@ -35,12 +35,13 @@ const SummaryCard = (props: SummaryCardProps) => {
                 }
             </div>
             {props.mapsOld ?
-                <>
-                    <div className="flex gap-2 justify-center items-center mt-auto ml-auto px-2">
+                <div className="flex flex-col mt-auto ml-auto">
+                    <div className="flex gap-2 justify-center items-center ml-auto px-2">
                         <h1 className="text-xs text-green-300">▲</h1>
                         <h1 className="text-2xl text-green-300">{calculateTotalPlays(props.maps) - calculateTotalPlays(props.mapsOld)}</h1>
                     </div>
-                </>
+                    <div className="text-xs text-zinc-400">total plays for last 8 days</div>
+                </div>
                 : null
             }
 
