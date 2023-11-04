@@ -53,7 +53,7 @@ const SummaryCard = () => {
                         <h1 className="text-xs text-green-300">▲</h1>
                         <h1 className="text-2xl text-green-300">{calculateTotalPlays(maps!) - calculateTotalPlays(mapsOld)}</h1>
                     </div>
-                    <div className="text-xs text-zinc-400">total plays for last {getTimeAgoString(mapsOldLastTimeFetched!)} days</div>
+                    <div className="text-xs text-zinc-400">total plays for last {getTimeAgoString(mapsOldLastTimeFetched!)}</div>
                 </div>
                 : null
             }

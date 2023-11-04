@@ -33,7 +33,7 @@ const SummaryCard2 = () => {
                 <div>Last fetched {getTimeAgoString(mapsLastTimeFetched)}</div>
                 {
                     mapsOldLastTimeFetched ?
-                        <div>Previously fetched {getTimeAgoString(mapsOldLastTimeFetched)}</div>
+                        <div>Previously fetched {getTimeAgoString(mapsOldLastTimeFetched)} ago</div>
                         : null
                 }
             </div>

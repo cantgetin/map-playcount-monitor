@@ -134,11 +134,11 @@ export function millisecondsToDHMString(time: number): string {
     const daysAgo = Math.floor(hoursAgo / 24);
 
     if (daysAgo > 0) {
-        return `${daysAgo} day${daysAgo !== 1 ? 's' : ''} ago`;
+        return `${daysAgo} day${daysAgo !== 1 ? 's' : ''}`;
     } else if (hoursAgo > 0) {
-        return `${hoursAgo} hour${hoursAgo !== 1 ? 's' : ''} ago`;
+        return `${hoursAgo} hour${hoursAgo !== 1 ? 's' : ''}`;
     } else if (minutesAgo > 0) {
-        return `${minutesAgo} minute${minutesAgo !== 1 ? 's' : ''} ago`;
+        return `${minutesAgo} minute${minutesAgo !== 1 ? 's' : ''}`;
     } else {
         return 'just now';
     }
