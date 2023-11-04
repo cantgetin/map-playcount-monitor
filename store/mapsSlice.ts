@@ -30,6 +30,34 @@ const calculatePlaysOnAllDiffs = (map: OsuMap): number => {
     return sum
 }
 
+export const forceFetchMaps = createAsyncThunk(
+    'maps/forceFetchMaps',
+    async (userId: number, thunkAPI): Promise<{
+        maps: OsuMap[],
+        mapsOld: OsuMap[] | null,
+        mapsLastTimeFetched: string,
+        mapsOldLastTimeFetched: string | null
+    }> => {
+        let mapsStr = localStorage.getItem("maps")
+        let maps: OsuMap[] = JSON.parse(mapsStr!)
+        let now = new Date()
+        let mapsLastTimeFetched = localStorage.getItem("maps_last_time_fetched")
+
+        localStorage.setItem("maps_old", JSON.stringify(maps))
+        let newMaps = await getUserBeatmapsWithRetry(userId)
+        newMaps.sort((a, b) => calculatePlaysOnAllDiffs(b) - calculatePlaysOnAllDiffs(a))
+        localStorage.setItem("maps_last_time_fetched", now.getTime().toString())
+        localStorage.setItem("maps", JSON.stringify(newMaps))
+        localStorage.setItem("maps_old_last_time_fetched", mapsLastTimeFetched!)
+        return {
+            maps: newMaps,
+            mapsOld: maps,
+            mapsLastTimeFetched: localStorage.getItem("maps_last_time_fetched")!,
+            mapsOldLastTimeFetched: localStorage.getItem("maps_old_last_time_fetched")!
+        }
+    }
+)
+
 // todo: refactor this
 export const fetchMaps = createAsyncThunk(
     'maps/fetchMaps',
@@ -122,6 +150,19 @@ const mapsSlice = createSlice({
             state.loading = LoadingState.Pending
         })
         builder.addCase(fetchMaps.rejected, (state, action) => {
+            state.loading = LoadingState.Failed
+        })
+        builder.addCase(forceFetchMaps.fulfilled, (state, action) => {
+            state.maps = action.payload.maps
+            state.mapsOld = action.payload.mapsOld
+            state.loading = LoadingState.Succeeded
+            state.mapsLastTimeFetched = action.payload.mapsLastTimeFetched
+            state.mapsOldLastTimeFetched = action.payload.mapsOldLastTimeFetched
+        })
+        builder.addCase(forceFetchMaps.pending, (state, action) => {
+            state.loading = LoadingState.Pending
+        })
+        builder.addCase(forceFetchMaps.rejected, (state, action) => {
             state.loading = LoadingState.Failed
         })
     },

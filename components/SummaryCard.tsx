@@ -2,14 +2,21 @@ import React from 'react';
 import { OsuMap } from "@/interfaces/Map";
 import MapCard from "@/components/MapCard";
 import { User } from '@/interfaces/User';
+import { getTimeAgoString } from '@/utils/utils';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { selectMaps, selectOldMaps, selectMapsLastTimeFetched, selectMapsOldLastTimeFetched } from '@/store/mapsSlice';
+import { selectUser } from '@/store/userSlice';
 
-interface SummaryCardProps {
-    user: User
-    maps: OsuMap[]
-    mapsOld: OsuMap[] | null
-}
+const SummaryCard = () => {
+    const dispatch = useAppDispatch();
 
-const SummaryCard = (props: SummaryCardProps) => {
+    const { user, maps, mapsOld, mapsLastTimeFetched, mapsOldLastTimeFetched } = useAppSelector((state) => ({
+        user: selectUser(state),
+        maps: selectMaps(state),
+        mapsOld: selectOldMaps(state),
+        mapsLastTimeFetched: selectMapsLastTimeFetched(state),
+        mapsOldLastTimeFetched: selectMapsOldLastTimeFetched(state),
+    }));
 
     const calculateTotalPlays = (maps: OsuMap[]): number => {
         let sum = 0
@@ -24,23 +31,29 @@ const SummaryCard = (props: SummaryCardProps) => {
 
     return (
         <>
-            <h1 className="text-2xl">
-                {props.user.graveyard_beatmapset_count + props.user.unranked_beatmapset_count} Maps fetched
-            </h1>
-            <div className="text-xl text-yellow-200">
-                {calculateTotalPlays(props.maps)} Plays now
-                {props.mapsOld ? 
-                    <div className="text-sm text-orange-200">{calculateTotalPlays(props.mapsOld)} Plays last time</div> 
+            {user && maps ?
+                    <>
+                        <h1 className="text-2xl">
+                            {user.graveyard_beatmapset_count + user.unranked_beatmapset_count} Maps fetched
+                        </h1>
+                        <div className="text-xl text-yellow-200">
+                            {calculateTotalPlays(maps)} Plays now
+                            {mapsOld ?
+                                <div className="text-sm text-orange-200">{calculateTotalPlays(mapsOld)} Plays last time</div>
+                                : null
+                            }
+                        </div>
+                    </>
                     : null
-                }
-            </div>
-            {props.mapsOld ?
+
+            }
+            {mapsOld ?
                 <div className="flex flex-col mt-auto ml-auto">
                     <div className="flex gap-2 justify-center items-center ml-auto px-2">
                         <h1 className="text-xs text-green-300">▲</h1>
-                        <h1 className="text-2xl text-green-300">{calculateTotalPlays(props.maps) - calculateTotalPlays(props.mapsOld)}</h1>
+                        <h1 className="text-2xl text-green-300">{calculateTotalPlays(maps!) - calculateTotalPlays(mapsOld)}</h1>
                     </div>
-                    <div className="text-xs text-zinc-400">total plays for last 8 days</div>
+                    <div className="text-xs text-zinc-400">total plays for last {getTimeAgoString(mapsOldLastTimeFetched!)} days</div>
                 </div>
                 : null
             }
